@@ -1,0 +1,23 @@
+:root {
+  /* Surface & Backgrounds */
+  --color-bg-main: #212B27;
+  --color-bg-card: #2A3631;
+  --color-border-main: #3A4B44;
+
+  /* Text */
+  --color-text-main: #F7FFF7;
+  --color-text-muted: #A0AFA9;
+  --color-text-accent: #DF9D26;
+
+  /* Interactive Elements */
+  --color-btn-primary-bg: #DF9D26;
+  --color-btn-primary-hover: #C28821;
+  --color-btn-primary-text: #212B27;
+
+  --color-btn-secondary-border: #3A4B44;
+  --color-btn-secondary-text: #F7FFF7;
+  --color-btn-secondary-hover: #2A3631;
+
+  /* Accents */
+  --color-accent-secondary: #DF9D26;
+}

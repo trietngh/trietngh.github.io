@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Style Guide">
+	<div class="py-16">
+		<header class="mb-12 border-b border-surface-border pb-8">
+			<h1 class="text-4xl md:text-5xl font-extrabold text-content-accent mb-4 font-display">Style Guide</h1>
+			<p class="text-lg text-content-muted">
+				This page verifies the visual coherence and design tokens as defined in GEMINI.md.
+			</p>
+		</header>
+
+		<!-- Typography Section -->
+		<section class="py-12 flex flex-col gap-8">
+			<h2 class="text-3xl md:text-4xl font-bold border-b border-surface-border pb-4 font-display">1. Typography</h2>
+			
+			<div class="space-y-6">
+				<div>
+					<span class="text-xs uppercase tracking-wider text-content-muted mb-2 block">Heading 1 (text-4xl md:text-5xl font-display)</span>
+					<h1 class="text-4xl md:text-5xl font-bold font-display">The quick brown fox jumps over the lazy dog</h1>
+				</div>
+				
+				<div>
+					<span class="text-xs uppercase tracking-wider text-content-muted mb-2 block">Heading 2 (text-3xl md:text-4xl font-display)</span>
+					<h2 class="text-3xl md:text-4xl font-bold font-display">The quick brown fox jumps over the lazy dog</h2>
+				</div>
+				
+				<div>
+					<span class="text-xs uppercase tracking-wider text-content-muted mb-2 block">Heading 3 (text-2xl md:text-3xl font-display)</span>
+					<h3 class="text-2xl md:text-3xl font-bold font-display">The quick brown fox jumps over the lazy dog</h3>
+				</div>
+				
+				<div>
+					<span class="text-xs uppercase tracking-wider text-content-muted mb-2 block">Lead Paragraph (text-lg)</span>
+					<p class="text-lg text-content-main">
+						This is a lead paragraph. It's slightly larger than standard body text to help it stand out.
+					</p>
+				</div>
+				
+				<div>
+					<span class="text-xs uppercase tracking-wider text-content-muted mb-2 block">Body Text (text-base)</span>
+					<p class="text-base text-content-muted">
+						This is standard body text. It uses the semantic `text-content-muted` class which maps to centralized variables.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- UI Elements Section -->
+		<section class="py-12 flex flex-col gap-8">
+			<h2 class="text-3xl md:text-4xl font-bold border-b border-surface-border pb-4 font-display">2. UI Elements (Tokens)</h2>
+			
+			<div class="space-y-8">
+				<!-- Buttons -->
+				<div class="flex flex-col gap-4">
+					<h3 class="text-xl font-semibold font-display">Buttons</h3>
+					<div class="flex flex-wrap gap-4">
+						<button class="bg-action-primary text-action-primary-content px-4 py-2 rounded-md hover:bg-action-primary-hover transition-colors">
+							Primary Button
+						</button>
+						<button class="border border-action-secondary-border text-action-secondary-content px-4 py-2 rounded-md hover:bg-action-secondary-hover transition-colors">
+							Secondary Button
+						</button>
+					</div>
+				</div>
+
+				<!-- Links -->
+				<div class="flex flex-col gap-4">
+					<h3 class="text-xl font-semibold font-display">Links</h3>
+					<p>
+						This is an <a href="#" class="text-content-accent hover:underline transition-colors">inline link</a> that uses the accent token.
+					</p>
+				</div>
+
+				<!-- Cards -->
+				<div class="flex flex-col gap-4">
+					<h3 class="text-xl font-semibold font-display">Cards</h3>
+					<div class="grid md:grid-cols-2 gap-6">
+						<div class="bg-surface-card rounded-lg shadow-sm border border-surface-border p-6">
+							<h4 class="text-lg font-bold mb-2 font-display">Card Title</h4>
+							<p class="text-content-muted mb-4">
+								This card component follows the specifications in the style guide using semantic tokens.
+							</p>
+							<button class="text-content-accent font-medium hover:underline">Action Link</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Special Elements Section -->
+		<section class="py-12 flex flex-col gap-8">
+			<h2 class="text-3xl md:text-4xl font-bold border-b border-surface-border pb-4 font-display">3. Special Elements (Non-Token)</h2>
+			<p class="text-content-muted">
+				These elements use colors defined directly in GEMINI.md rather than the central token file.
+			</p>
+			
+			<div class="space-y-4">
+				<div class="p-4 rounded-md border bg-emerald-900/30 text-emerald-400 border-emerald-800">
+					<span class="font-bold">Success Alert:</span> This is a success message using non-centralized colors.
+				</div>
+				
+				<div class="p-4 rounded-md border bg-red-900/30 text-red-400 border-red-800">
+					<span class="font-bold">Error Alert:</span> This is an error message using non-centralized colors.
+				</div>
+			</div>
+		</section>
+	</div>
+</BaseLayout>

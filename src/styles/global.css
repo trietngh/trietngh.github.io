@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@import "./theme-tokens.css";
+
+@font-face {
+  font-family: 'Aperture';
+  src: url('/fonts/APERTURE_Digital-Typeface-creativealys-150901/APERTURE/aperture2.0-webfont.woff2') format('woff2'),
+    url('/fonts/APERTURE_Digital-Typeface-creativealys-150901/APERTURE/aperture2.0-webfont.woff') format('woff'),
+    url('/fonts/APERTURE_Digital-Typeface-creativealys-150901/APERTURE/aperture2.0-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oxanium';
+  src: url('/fonts/Oxanium/Oxanium-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* Fonts */
+  --font-sans: 'Aperture', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Oxanium', sans-serif;
+
+  /* Surface Colors */
+  --color-surface-main: var(--color-bg-main);
+  --color-surface-card: var(--color-bg-card);
+  --color-surface-border: var(--color-border-main);
+
+  /* Text Colors */
+  --color-content-main: var(--color-text-main);
+  --color-content-muted: var(--color-text-muted);
+  --color-content-accent: var(--color-text-accent);
+
+  /* Component Colors */
+  --color-action-primary: var(--color-btn-primary-bg);
+  --color-action-primary-hover: var(--color-btn-primary-hover);
+  --color-action-primary-content: var(--color-btn-primary-text);
+
+  --color-action-secondary-border: var(--color-btn-secondary-border);
+  --color-action-secondary-content: var(--color-btn-secondary-text);
+  --color-action-secondary-hover: var(--color-btn-secondary-hover);
+}
