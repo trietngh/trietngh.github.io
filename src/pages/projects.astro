@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Projects | Portfolio">
+	<div class="py-24">
+		<div class="text-center mb-16">
+			<h1 class="text-4xl md:text-5xl font-display font-bold text-content-main mb-6">Projects</h1>
+			<p class="text-lg text-content-muted max-w-2xl mx-auto">Explore my recent work and personal projects.</p>
+		</div>
+		
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+			<!-- Mock Project 1 -->
+			<a href="#" class="bg-surface-card rounded-lg shadow-sm border border-surface-border p-6 hover:border-content-accent transition-colors block group">
+				<h2 class="text-2xl font-display font-bold text-content-main mb-3 group-hover:text-content-accent transition-colors">Project Alpha</h2>
+				<p class="text-content-muted mb-4">A comprehensive web application demonstrating modern development practices and scalable architecture.</p>
+				<div class="flex gap-2">
+					<span class="px-3 py-1 bg-surface-main rounded-full text-xs font-medium text-content-accent border border-surface-border">Astro</span>
+					<span class="px-3 py-1 bg-surface-main rounded-full text-xs font-medium text-content-accent border border-surface-border">Tailwind</span>
+				</div>
+			</a>
+
+			<!-- Mock Project 2 -->
+			<a href="#" class="bg-surface-card rounded-lg shadow-sm border border-surface-border p-6 hover:border-content-accent transition-colors block group">
+				<h2 class="text-2xl font-display font-bold text-content-main mb-3 group-hover:text-content-accent transition-colors">Mars Explorer</h2>
+				<p class="text-content-muted mb-4">An interactive data visualization tool for exploring recent Mars rover discoveries and telemetry data.</p>
+				<div class="flex gap-2">
+					<span class="px-3 py-1 bg-surface-main rounded-full text-xs font-medium text-content-accent border border-surface-border">React</span>
+					<span class="px-3 py-1 bg-surface-main rounded-full text-xs font-medium text-content-accent border border-surface-border">D3.js</span>
+				</div>
+			</a>
+		</div>
+
+		<div class="mt-16 text-center">
+			<a href="/" class="inline-flex items-center gap-2 text-content-muted hover:text-content-main transition-colors">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+				Back to Home
+			</a>
+		</div>
+	</div>
+</BaseLayout>

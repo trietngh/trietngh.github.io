@@ -2,14 +2,94 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Portfolio Draft">
-	<div class="min-h-[80vh] flex items-center justify-center">
-		<div class="text-center">
-			<h1 class="text-5xl font-extrabold text-content-accent mb-6">Portfolio Draft</h1>
-			<p class="text-lg text-content-muted mb-8">Welcome to the portfolio development workspace.</p>
-			<a href="/style-guide" class="bg-action-primary text-action-primary-content px-6 py-3 rounded-md hover:bg-action-primary-hover transition-colors font-medium">
-				View Style Guide
-			</a>
+<BaseLayout title="Triet Nguyen | Robotics Engineer" maxWidth="max-w-full">
+	<!-- Main Center Content -->
+	<div class="min-h-screen flex items-center justify-center relative px-4">
+		<div
+			class="max-w-full w-full flex flex-col md:flex-row items-center justify-start gap-16 md:gap-40 md:pl-24 lg:pl-32 xl:pl-48 z-10"
+		>
+			<!-- Avatar (Left Side) -->
+			<div class="w-128 h-128 md:w-[500px] md:h-[500px] flex-shrink-0">
+				<img
+					src="/icons/avatar.svg"
+					alt="Avatar"
+					class="w-full h-full object-contain"
+				/>
+			</div>
+
+			<!-- Text Content (Right Side) -->
+			<div class="flex flex-col items-start text-left max-w-3xl">
+				<!-- Mars Rover Icon -->
+				<div class="w-16 h-16 md:w-24 md:h-24 mb-4">
+					<img
+						src="/icons/mars_rovers.svg"
+						alt="Mars Rover"
+						class="w-full h-full object-contain"
+						style="filter: invert(1) brightness(2);"
+					/>
+				</div>
+
+				<!-- Hello Text -->
+				<h1
+					class="text-5xl md:text-7xl font-display font-bold text-content-main mb-4 tracking-tight leading-tight"
+				>
+					Hi, I'm <br class="md:hidden" /><span class="text-content-accent"
+						>Triet Nguyen</span
+					>
+				</h1>
+				<p
+					class="text-2xl md:text-3xl text-content-muted font-sans mb-10"
+				>
+					A robotics engineer
+				</p>
+
+				<!-- Discover Projects Button -->
+				<a
+					href="/projects"
+					class="bg-action-primary text-action-primary-content px-8 py-4 rounded-full hover:bg-action-primary-hover transition-colors font-sans font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-200 inline-block mb-10"
+				>
+					Discover my projects
+				</a>
+
+				<!-- Social Links -->
+				<div class="flex items-center gap-4">
+					<a
+						href="https://github.com"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-content-muted hover:text-content-accent transition-colors transform hover:scale-110 duration-200"
+					>
+						<img
+							src="/icons/GitHub_Logos/GitHub_Invertocat_White.svg"
+							alt="GitHub"
+							class="w-10 h-10 opacity-80 hover:opacity-100 transition-opacity"
+						/>
+					</a>
+					<a
+						href="https://linkedin.com"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-content-muted hover:text-content-accent transition-colors transform hover:scale-110 duration-200"
+					>
+						<img
+							src="/icons/LinkedIn_icon_circle.svg"
+							alt="LinkedIn"
+							class="w-10 h-10 opacity-80 hover:opacity-100 transition-opacity"
+						/>
+					</a>
+					<a
+						href="mailto:tr_nguye@insa-toulouse.fr.com"
+						class="text-content-muted hover:text-content-accent transition-colors transform hover:scale-110 duration-200"
+					>
+						<img
+							src="/icons/email-round-solid-icon.svg"
+							alt="Email"
+							class="w-10 h-10 opacity-80 hover:opacity-100 transition-opacity"
+							style="filter: invert(1);"
+						/>
+					</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </BaseLayout>

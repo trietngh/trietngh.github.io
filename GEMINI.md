@@ -6,6 +6,7 @@ This repository contains a static portfolio website built using **Astro**, **Tai
 - **Component Preference:** Default to using `.astro` components.
 - **TypeScript:** Use TypeScript for all logic within Astro component frontmatter (`---`) and any utility scripts. Maintain strict type safety.
 - **Semantic HTML:** Always use semantic HTML5 tags (e.g., `<article>`, `<section>`, `<nav>`, `<main>`) for accessibility and SEO.
+- ** Testing:** Run `npm run dev` to start the development server. Then the website will be available at `http://localhost:4321`.
 
 # Design Tokens & Colors
 **IMPORTANT:** All core colors and component-specific colors are centralized in `src/styles/theme-tokens.css`. 
@@ -18,7 +19,7 @@ This repository contains a static portfolio website built using **Astro**, **Tai
 ## Special Element: Alerts
 *Note: These colors are NOT in the central theme-tokens file and should be used as one-offs for alert components.*
 - **Alert Success:** `bg-emerald-900/30 text-emerald-400 border-emerald-800`
-- **Alert Error:** `bg-red-900/30 text-red-400 border-red-800`
+- **Alert Error:** `bg-red-900/30 text-red-400 border-red-800`  
 
 # Website Styleguide
 *Note to Agents: Always refer to this styleguide and the centralized tokens when generating or modifying UI components.*
