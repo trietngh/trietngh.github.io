@@ -1,0 +1,140 @@
+---
+// src/components/Header.astro
+---
+
+<header
+  class="fixed top-0 w-full z-50 transition-all duration-300 py-6 px-8 flex items-center justify-between"
+>
+  <!-- Logo -->
+  <a
+    href="/"
+    class="text-4xl font-display font-extrabold tracking-widest text-content-main hover:text-content-accent transition-colors"
+  >
+    Tn.
+  </a>
+
+  <!-- Right Section: Menu and Actions -->
+  <div class="flex items-center gap-12">
+    <!-- Main Menu (Desktop) - Floating Pill -->
+    <nav
+      class="hidden md:flex items-center gap-10 text-xl font-sans font-bold bg-transparent border border-content-main/40 rounded-2xl px-10 py-3.5 backdrop-blur-sm"
+    >
+      <a
+        href="/"
+        class="text-content-main hover:text-content-accent transition-colors"
+        >Home</a
+      >
+      <a
+        href="/#about"
+        class="text-content-main hover:text-content-accent transition-colors"
+        >About</a
+      >
+      <a
+        href="/projects"
+        class="text-content-main hover:text-content-accent transition-colors"
+        >Projects</a
+      >
+      <a
+        href="/blog"
+        class="text-content-main hover:text-content-accent transition-colors"
+        >Blog</a
+      >
+      <a
+        href="/#contact"
+        class="text-content-main hover:text-content-accent transition-colors"
+        >Contact</a
+      >
+    </nav>
+
+    <!-- Right Side Actions -->
+    <div class="flex items-center gap-6">
+      <!-- Language Toggle -->
+      <button
+        class="hidden md:block text-content-main font-bold font-sans hover:text-content-accent transition-colors uppercase tracking-wide text-xl"
+      >
+        EN
+      </button>
+
+      <!-- Mobile Menu Toggle (Hamburger) -->
+      <button
+        id="mobile-menu-toggle"
+        class="md:hidden text-content-main hover:text-content-accent transition-colors p-2"
+        aria-label="Toggle mobile menu"
+      >
+        <svg
+          class="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 bg-surface-main/95 backdrop-blur-md z-[60] hidden flex-col items-center justify-start pt-32 pb-8 overflow-y-auto opacity-0 pointer-events-none transition-opacity duration-300"
+>
+  <button
+    id="mobile-menu-close"
+    class="absolute top-6 right-8 text-content-main hover:text-content-accent p-2"
+    aria-label="Close mobile menu"
+  >
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+  
+  <nav class="flex flex-col items-center gap-8 text-2xl font-display font-bold">
+    <a href="/" class="mobile-link text-content-main hover:text-content-accent transition-colors">Home</a>
+    <a href="/#about" class="mobile-link text-content-main hover:text-content-accent transition-colors">About</a>
+    <a href="/projects" class="mobile-link text-content-main hover:text-content-accent transition-colors">Projects</a>
+    <a href="/blog" class="mobile-link text-content-main hover:text-content-accent transition-colors">Blog</a>
+    <a href="/#contact" class="mobile-link text-content-main hover:text-content-accent transition-colors">Contact</a>
+    <button class="text-content-main hover:text-content-accent transition-colors mt-4">EN</button>
+  </nav>
+</div>
+
+<script>
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  function openMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove('hidden');
+    // Slight delay to allow display:block to apply before changing opacity
+    setTimeout(() => {
+      mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+      mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+    }, 10);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+
+  function closeMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+    setTimeout(() => {
+      mobileMenu.classList.add('hidden');
+    }, 300); // match transition duration
+    document.body.style.overflow = '';
+  }
+
+  mobileMenuToggle?.addEventListener('click', openMenu);
+  mobileMenuClose?.addEventListener('click', closeMenu);
+  
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>

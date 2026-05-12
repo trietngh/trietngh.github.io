@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import StarBackground from "../components/StarBackground.astro";
+import Header from "../components/Header.astro";
 
 interface Props {
 	title: string;
@@ -23,6 +24,7 @@ const { title, maxWidth = "max-w-4xl" } = Astro.props;
 		class="bg-surface-main text-content-main font-sans min-h-screen relative"
 	>
 		<StarBackground />
+		<Header />
 		<main class={`${maxWidth} mx-auto px-4 sm:px-6 lg:px-8 relative z-10`}>
 			<slot />
 		</main>

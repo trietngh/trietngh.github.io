@@ -13,19 +13,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 				<img
 					src="/icons/avatar.svg"
 					alt="Avatar"
-					class="w-full h-full object-contain"
+					class="w-full h-full object-contain opacity-95"
 				/>
 			</div>
 
 			<!-- Text Content (Right Side) -->
 			<div class="flex flex-col items-start text-left max-w-3xl">
 				<!-- Mars Rover Icon -->
-				<div class="w-16 h-16 md:w-24 md:h-24 mb-4">
+				<div class="w-16 h-16 md:w-32 md:h-32 mb-4">
 					<img
-						src="/icons/mars_rovers.svg"
+						src="/icons/rover.svg"
 						alt="Mars Rover"
 						class="w-full h-full object-contain"
-						style="filter: invert(1) brightness(2);"
 					/>
 				</div>
 
@@ -33,8 +32,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 				<h1
 					class="text-5xl md:text-7xl font-display font-bold text-content-main mb-4 tracking-tight leading-tight"
 				>
-					Hi, I'm <br class="md:hidden" /><span class="text-content-accent"
-						>Triet Nguyen</span
+					Hi, I'm <br class="md:hidden" /><span
+						class="text-content-accent">Triet Nguyen</span
 					>
 				</h1>
 				<p
@@ -46,7 +45,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 				<!-- Discover Projects Button -->
 				<a
 					href="/projects"
-					class="bg-action-primary text-action-primary-content px-8 py-4 rounded-full hover:bg-action-primary-hover transition-colors font-sans font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-200 inline-block mb-10"
+					class="bg-action-primary text-action-primary-content px-8 py-4 rounded-2xl hover:bg-action-primary-hover transition-colors font-sans font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-200 inline-block mb-10"
 				>
 					Discover my projects
 				</a>
@@ -54,7 +53,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 				<!-- Social Links -->
 				<div class="flex items-center gap-4">
 					<a
-						href="https://github.com"
+						href="https://github.com/trietngh"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-content-muted hover:text-content-accent transition-colors transform hover:scale-110 duration-200"
@@ -66,7 +65,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 						/>
 					</a>
 					<a
-						href="https://linkedin.com"
+						href="https://linkedin.com/in/triet-nguyen-vn"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-content-muted hover:text-content-accent transition-colors transform hover:scale-110 duration-200"
@@ -92,4 +91,191 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			</div>
 		</div>
 	</div>
+
+	<!-- About Me Section -->
+	<section
+		id="about"
+		class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10 relative"
+	>
+		<div class="flex flex-col md:flex-row items-center gap-16 md:gap-24">
+			<!-- Text Side -->
+			<!-- Image Side -->
+			<div class="w-full md:w-1/2 flex justify-center">
+				<img
+					src="/icons/Home(3).png"
+					alt="A few words about me"
+					class="max-w-full h-auto object-contain rounded-2xl"
+				/>
+			</div>
+			<div class="w-full md:w-1/2 flex flex-col items-start text-left">
+				<h2
+					class="text-4xl md:text-5xl font-display font-bold text-content-main mb-8"
+				>
+					A few words <br class="md:hidden" /><span
+						class="text-content-accent">about me</span
+					>
+				</h2>
+				<p
+					class="text-xl text-content-muted font-sans mb-6 text-justify"
+				>
+					I'm a robotics engineer passionate about building
+					intelligent systems that interact with the physical world.
+					My journey in robotics has equipped me with a deep
+					understanding of software development, control systems, and
+					computer vision.
+				</p>
+				<p class="text-xl text-content-muted font-sans text-justify">
+					I specialize in developing robust algorithms for autonomous
+					navigation and perception. I'm always looking for new
+					challenges and opportunities to push the boundaries of
+					what's possible in robotics.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Projects Section -->
+	<section
+		id="projects"
+		class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10 relative"
+	>
+		<div class="text-center mb-16">
+			<h2
+				class="text-4xl md:text-5xl font-display font-bold text-content-main mb-6"
+			>
+				My <span class="text-content-accent">Projects</span>
+			</h2>
+			<p class="text-xl text-content-muted max-w-2xl mx-auto">
+				Here are some of my favorite projects I've worked on.
+			</p>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+			<!-- Highlight Project 1 -->
+			<a
+				href="/projects"
+				class="bg-surface-card rounded-lg shadow-sm border border-surface-border overflow-hidden hover:border-content-accent transition-colors block group flex flex-col"
+			>
+				<div
+					class="w-full h-48 overflow-hidden bg-surface-main relative"
+				>
+					<img
+						src="/icons/Home(3).png"
+						alt="Project Alpha"
+						class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-transform duration-500 group-hover:scale-105"
+					/>
+				</div>
+				<div class="p-6 flex flex-col flex-1">
+					<h3
+						class="text-3xl font-display font-bold text-content-main mb-3 group-hover:text-content-accent transition-colors"
+					>
+						Project Alpha
+					</h3>
+					<p class="text-xl text-content-muted mb-4 flex-1">
+						A comprehensive web application demonstrating modern
+						development practices and scalable architecture.
+					</p>
+					<div class="flex flex-wrap gap-2 mt-auto">
+						<span
+							class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border"
+						>
+							Astro
+						</span>
+						<span
+							class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border"
+						>
+							Tailwind
+						</span>
+					</div>
+				</div>
+			</a>
+
+			<!-- Highlight Project 2 -->
+			<a
+				href="/projects"
+				class="bg-surface-card rounded-lg shadow-sm border border-surface-border overflow-hidden hover:border-content-accent transition-colors block group flex flex-col"
+			>
+				<div
+					class="w-full h-48 overflow-hidden bg-surface-main relative"
+				>
+					<img
+						src="/icons/Home(3).png"
+						alt="Mars Explorer"
+						class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-transform duration-500 group-hover:scale-105"
+					/>
+				</div>
+				<div class="p-6 flex flex-col flex-1">
+					<h3
+						class="text-3xl font-display font-bold text-content-main mb-3 group-hover:text-content-accent transition-colors"
+					>
+						Mars Explorer
+					</h3>
+					<p class="text-xl text-content-muted mb-4 flex-1">
+						An interactive data visualization tool for exploring
+						recent Mars rover discoveries and telemetry data.
+					</p>
+					<div class="flex flex-wrap gap-2 mt-auto">
+						<span
+							class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border"
+						>
+							React
+						</span>
+						<span
+							class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border"
+						>
+							D3.js
+						</span>
+					</div>
+				</div>
+			</a>
+
+			<!-- Highlight Project 3 -->
+			<a
+				href="/projects"
+				class="bg-surface-card rounded-lg shadow-sm border border-surface-border overflow-hidden hover:border-content-accent transition-colors block group flex flex-col"
+			>
+				<div
+					class="w-full h-48 overflow-hidden bg-surface-main relative"
+				>
+					<img
+						src="/icons/Home(3).png"
+						alt="Autonomous Drone"
+						class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-transform duration-500 group-hover:scale-105"
+					/>
+				</div>
+				<div class="p-6 flex flex-col flex-1">
+					<h3
+						class="text-3xl font-display font-bold text-content-main mb-3 group-hover:text-content-accent transition-colors"
+					>
+						Autonomous Drone
+					</h3>
+					<p class="text-xl text-content-muted mb-4 flex-1">
+						Flight control software and obstacle avoidance logic for
+						a custom quadcopter using ROS 2.
+					</p>
+					<div class="flex flex-wrap gap-2 mt-auto">
+						<span
+							class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border"
+						>
+							C++
+						</span>
+						<span
+							class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border"
+						>
+							ROS 2
+						</span>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="mt-16 text-center">
+			<a
+				href="/projects"
+				class="border border-action-secondary-border text-action-secondary-content px-8 py-4 rounded-full hover:bg-action-secondary-hover transition-colors font-sans font-bold text-lg inline-block shadow-sm"
+			>
+				View all projects
+			</a>
+		</div>
+	</section>
 </BaseLayout>
