@@ -1,5 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import ProjectCard from "../components/ProjectCard.astro";
+
+const allProjects = await getCollection("projects");
 ---
 
 <BaseLayout title="Projects | Portfolio">
@@ -10,43 +14,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		</div>
 		
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-			<!-- Mock Project 1 -->
-			<a href="#" class="bg-surface-card rounded-lg shadow-sm border border-surface-border overflow-hidden hover:border-content-accent transition-colors block group flex flex-col">
-				<div class="w-full h-64 overflow-hidden bg-surface-main relative">
-					<img src="/icons/Home(3).png" alt="Project Alpha" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-transform duration-500 group-hover:scale-105" />
-				</div>
-				<div class="p-6 flex flex-col flex-1">
-					<h2 class="text-3xl font-display font-bold text-content-main mb-3 group-hover:text-content-accent transition-colors">Project Alpha</h2>
-					<p class="text-lg text-content-muted mb-4 flex-1">A comprehensive web application demonstrating modern development practices and scalable architecture.</p>
-					<div class="flex flex-wrap gap-2 mt-auto">
-						<span class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border">
-							Astro
-						</span>
-						<span class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border">
-							Tailwind
-						</span>
-					</div>
-				</div>
-			</a>
-
-			<!-- Mock Project 2 -->
-			<a href="#" class="bg-surface-card rounded-lg shadow-sm border border-surface-border overflow-hidden hover:border-content-accent transition-colors block group flex flex-col">
-				<div class="w-full h-64 overflow-hidden bg-surface-main relative">
-					<img src="/icons/Home(3).png" alt="Mars Explorer" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-transform duration-500 group-hover:scale-105" />
-				</div>
-				<div class="p-6 flex flex-col flex-1">
-					<h2 class="text-3xl font-display font-bold text-content-main mb-3 group-hover:text-content-accent transition-colors">Mars Explorer</h2>
-					<p class="text-lg text-content-muted mb-4 flex-1">An interactive data visualization tool for exploring recent Mars rover discoveries and telemetry data.</p>
-					<div class="flex flex-wrap gap-2 mt-auto">
-						<span class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border">
-							React
-						</span>
-						<span class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border">
-							D3.js
-						</span>
-					</div>
-				</div>
-			</a>
+			{allProjects.map((project) => (
+				<ProjectCard project={project} headingLevel="h2" imageHeightClass="h-64" />
+			))}
 		</div>
 
 		<div class="mt-16 text-center">
