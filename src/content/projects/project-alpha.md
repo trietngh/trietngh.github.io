@@ -8,7 +8,7 @@ featured: true
 ---
 
 # Project Alpha
-
+THIS IS A MOCK PROJECT FOR DEVELOPPING PURPOSE ONLY!
 Here is the detailed content for **Project Alpha**. 
 
 ## Overview
