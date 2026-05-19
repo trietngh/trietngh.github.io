@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import TypewriterTitle from "../components/TypewriterTitle.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 
 const allProjects = await getCollection("projects");
@@ -43,13 +44,7 @@ const featuredProjects = allProjects
 						class="text-content-accent">Triet Nguyen</span
 					>
 				</h1>
-				<p
-					class="text-2xl md:text-3xl text-content-muted font-sans mb-10 h-8 md:h-10"
-				>
-					<span id="typewriter-text">A robotics engineer</span><span
-						class="animate-pulse font-light">|</span
-					>
-				</p>
+				<TypewriterTitle />
 
 				<!-- Discover Projects Button -->
 				<a
@@ -186,65 +181,4 @@ const featuredProjects = allProjects
 			</a>
 		</div>
 	</section>
-	<script>
-		const titles = [
-			"A robotics engineer",
-			"A space enthousiast",
-			"A learner",
-			"A reader",
-			"A (trying to be better) guitarist",
-		];
-
-		function initTypewriter() {
-			const textElement = document.getElementById("typewriter-text");
-			if (!textElement) return;
-
-			if (textElement.hasAttribute("data-typewriter-init")) return;
-			textElement.setAttribute("data-typewriter-init", "true");
-
-			let titleIndex = 0;
-			textElement.textContent = titles[titleIndex];
-			let charIndex = titles[titleIndex].length;
-			let isDeleting = true;
-			let timeoutId;
-
-			function type() {
-				if (!document.getElementById("typewriter-text")) return;
-
-				const currentTitle = titles[titleIndex];
-
-				if (isDeleting) {
-					textElement.textContent = currentTitle.substring(
-						0,
-						charIndex - 1,
-					);
-					charIndex--;
-				} else {
-					textElement.textContent = currentTitle.substring(
-						0,
-						charIndex + 1,
-					);
-					charIndex++;
-				}
-
-				let delay = isDeleting ? 50 : 100;
-
-				if (!isDeleting && charIndex === currentTitle.length) {
-					delay = 2000;
-					isDeleting = true;
-				} else if (isDeleting && charIndex === 0) {
-					isDeleting = false;
-					titleIndex = (titleIndex + 1) % titles.length;
-					delay = 500;
-				}
-
-				timeoutId = setTimeout(type, delay);
-			}
-
-			timeoutId = setTimeout(type, 2000);
-		}
-
-		initTypewriter();
-		document.addEventListener("astro:page-load", initTypewriter);
-	</script>
 </BaseLayout>
