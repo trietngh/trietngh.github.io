@@ -10,6 +10,10 @@ const projectsCollection = defineCollection({
     tags: z.array(z.string()).default([]),
     skills: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
+    githubUrl: z.string().url().optional(),
+    startedMonth: z.string().optional(),
+    duration: z.string().optional(),
+    status: z.string().optional(),
   }),
 });
 

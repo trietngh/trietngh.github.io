@@ -1,6 +1,19 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import calendarIconRaw from "../../../public/icons/calendar-svgrepo-com.svg?raw";
+import alarmIconRaw from "../../../public/icons/alarm-svgrepo-com.svg?raw";
+import tickCheckboxIconRaw from "../../../public/icons/tick-checkbox-svgrepo-com.svg?raw";
+
+const cleanSvg = (svgStr: string) => {
+	return svgStr
+		.replace(/width="800px"/g, 'width="100%"')
+		.replace(/height="800px"/g, 'height="100%"');
+};
+
+const calendarIcon = cleanSvg(calendarIconRaw);
+const alarmIcon = cleanSvg(alarmIconRaw);
+const tickCheckboxIcon = cleanSvg(tickCheckboxIconRaw);
 
 export async function getStaticPaths() {
 	const projects = await getCollection("projects");
@@ -35,12 +48,12 @@ const { Content } = await render(project);
 			Back to Projects
 		</a>
 
-		<header class="mb-12">
+		<header class="mb-8">
 			{
 				project.data.tags && project.data.tags.length > 0 && (
-					<div class="flex flex-wrap gap-2 mb-6">
+					<div class="flex flex-wrap gap-4 mb-6">
 						{project.data.tags.map((tag: string) => (
-							<span class="text-action-primary-content bg-action-primary text-xs font-bold tracking-widest uppercase px-3 py-1 rounded">
+							<span class="text-content-accent text-xs font-bold tracking-widest uppercase border-b border-surface-border pb-1">
 								{tag}
 							</span>
 						))}
@@ -54,18 +67,101 @@ const { Content } = await render(project);
 				{project.data.title}
 			</h1>
 
-			<p class="text-xl text-content-muted mb-8">
-				{project.data.description}
-			</p>
-
 			{
+				(project.data.startedMonth ||
+					project.data.duration ||
+					project.data.status) && (
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+						{project.data.startedMonth && (
+							<div class="flex items-center gap-4 bg-surface-card border border-surface-border rounded-xl py-2 px-5 shadow-sm">
+								<div class="w-6 h-6 text-content-main flex-shrink-0 svg-container">
+									<Fragment set:html={calendarIcon} />
+								</div>
+								<div class="flex flex-col text-left">
+									<span class="text-sm font-display text-content-muted tracking-wide">
+										Started
+									</span>
+									<span class="text-md font-bold font-display text-content-accent mt-0.1">
+										{project.data.startedMonth}
+									</span>
+								</div>
+							</div>
+						)}
+						{project.data.duration && (
+							<div class="flex items-center gap-4 bg-surface-card border border-surface-border rounded-xl py-2 px-5 shadow-sm">
+								<div class="w-6 h-6 text-content-main flex-shrink-0 svg-container">
+									<Fragment set:html={alarmIcon} />
+								</div>
+								<div class="flex flex-col text-left">
+									<span class="text-sm font-display text-content-muted tracking-wide">
+										Duration
+									</span>
+									<span class="text-md font-bold font-display text-content-accent mt-0.1">
+										{project.data.duration}
+									</span>
+								</div>
+							</div>
+						)}
+						{project.data.status && (
+							<div class="flex items-center gap-4 bg-surface-card border border-surface-border rounded-xl py-2 px-5 shadow-sm">
+								<div class="w-6 h-6 text-content-main flex-shrink-0 svg-container">
+									<Fragment set:html={tickCheckboxIcon} />
+								</div>
+								<div class="flex flex-col text-left">
+									<span class="text-sm font-display text-content-muted tracking-wide">
+										Status
+									</span>
+									<span class="text-md font-bold font-display text-content-accent mt-0.1">
+										{project.data.status}
+									</span>
+								</div>
+							</div>
+						)}
+					</div>
+				)
+			}
+
+			<!-- <p class="text-xl text-content-muted mb-6">
+				{project.data.description}
+			</p> -->
+
+			<!-- {
 				project.data.skills && project.data.skills.length > 0 && (
-					<div class="flex flex-wrap gap-3">
+					<div class="flex flex-wrap gap-3 mb-8">
 						{project.data.skills.map((skill: string) => (
 							<span class="px-4 py-2 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border">
 								{skill}
 							</span>
 						))}
+					</div>
+				)
+			} -->
+
+			{
+				project.data.githubUrl && (
+					<div class="flex">
+						<a
+							href={project.data.githubUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center gap-2 bg-action-primary text-action-primary-content px-4 py-2 rounded-3xl hover:bg-action-primary-hover transition-colors font-bold text-sm"
+						>
+							Source code
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="2.5"
+								stroke="currentColor"
+								class="w-4 h-4"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+								/>
+							</svg>
+						</a>
 					</div>
 				)
 			}

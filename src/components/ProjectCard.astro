@@ -8,14 +8,15 @@ interface Props {
 }
 
 const { project, headingLevel = 'h3', imageHeightClass = 'h-48' } = Astro.props;
-const { title, description, image, skills, tags } = project.data;
+const { title, description, image, skills, tags, githubUrl } = project.data;
 const url = `/projects/${project.id}`;
 ---
 
-<a
-	href={url}
-	class="bg-surface-card rounded-lg shadow-sm border border-surface-border overflow-hidden hover:border-content-accent transition-colors block group flex flex-col"
+<article
+	class="bg-surface-card rounded-lg shadow-sm border border-surface-border overflow-hidden hover:border-content-accent transition-colors flex flex-col relative group"
 >
+	<a href={url} class="absolute inset-0 z-0" aria-label={`View ${title}`}></a>
+	
 	<div class={`w-full ${imageHeightClass} overflow-hidden bg-surface-main relative`}>
 		{image ? (
 			<img
@@ -29,7 +30,7 @@ const url = `/projects/${project.id}`;
 			</div>
 		)}
 	</div>
-	<div class="p-6 flex flex-col flex-1">
+	<div class="p-6 flex flex-col flex-1 relative z-10 pointer-events-none">
 		{tags && tags.length > 0 && (
 			<div class="flex flex-wrap gap-2 mb-3">
 				{tags.map((tag) => (
@@ -54,14 +55,43 @@ const url = `/projects/${project.id}`;
 			{description}
 		</p>
 		
-		{skills && skills.length > 0 && (
-			<div class="flex flex-wrap gap-2 mt-auto">
-				{skills.map((skill) => (
-					<span class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border">
-						{skill}
-					</span>
-				))}
-			</div>
-		)}
+		<div class="flex flex-col gap-4 mt-auto">
+			{skills && skills.length > 0 && (
+				<div class="flex flex-wrap gap-2">
+					{skills.map((skill) => (
+						<span class="px-3 py-1 bg-surface-main rounded-full text-sm font-medium text-content-accent border border-surface-border">
+							{skill}
+						</span>
+					))}
+				</div>
+			)}
+
+			{githubUrl && (
+				<div class="pt-2">
+					<a
+						href={githubUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-flex items-center gap-2 border border-action-secondary-border text-action-secondary-content px-3 py-1.5 rounded-md text-sm hover:bg-action-secondary-hover hover:text-content-accent hover:border-content-accent transition-all duration-300 pointer-events-auto"
+					>
+						Source code
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+							class="w-3.5 h-3.5"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+							/>
+						</svg>
+					</a>
+				</div>
+			)}
+		</div>
 	</div>
-</a>
+</article>

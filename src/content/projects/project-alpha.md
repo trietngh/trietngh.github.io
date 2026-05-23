@@ -5,9 +5,12 @@ image: "/icons/Home(3).png"
 skills: ["Astro", "Tailwind"]
 tags: ["Web", "Frontend"]
 featured: true
+githubUrl: "https://github.com"
+startedMonth: "Oct 2025"
+duration: "4 months"
+status: "Completed"
 ---
 
-# Project Alpha
 THIS IS A MOCK PROJECT FOR DEVELOPPING PURPOSE ONLY!
 Here is the detailed content for **Project Alpha**. 
 
