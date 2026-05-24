@@ -83,6 +83,10 @@ const searchIndex = sortedBlogs.map((blog) => ({
 			}
 		</div>
 
+		<!-- Pagination Controls -->
+		<div id="blog-pagination" class="flex justify-center items-center gap-3 mt-12 select-none hidden">
+		</div>
+
 		<div class="mt-16 text-center">
 			<a
 				href="/"
@@ -110,43 +114,195 @@ const searchIndex = sortedBlogs.map((blog) => ({
 <script define:vars={{ searchIndex }}>
 	const searchInput = document.getElementById("blog-search");
 	const noResultsMessage = document.getElementById("no-results-message");
+	const paginationContainer = document.getElementById("blog-pagination");
+
+	const PAGE_SIZE = 10;
+	let currentPage = 1;
+
+	const handleSearch = () => {
+		const query = searchInput.value.toLowerCase().trim();
+
+		// Filter the list of blogs matching query
+		const filteredBlogs = searchIndex.filter((blog) => {
+			const matchTitle = blog.title.toLowerCase().includes(query);
+			const matchDescription = blog.description.toLowerCase().includes(query);
+			const matchBody = blog.body.toLowerCase().includes(query);
+			return matchTitle || matchDescription || matchBody;
+		});
+
+		const totalMatches = filteredBlogs.length;
+		const totalPages = Math.ceil(totalMatches / PAGE_SIZE) || 1;
+
+		// Adjust current page if it is out of bounds
+		if (currentPage > totalPages) {
+			currentPage = totalPages;
+		}
+		if (currentPage < 1) {
+			currentPage = 1;
+		}
+
+		// Calculate visible range for the current page
+		const startIndex = (currentPage - 1) * PAGE_SIZE;
+		const endIndex = startIndex + PAGE_SIZE;
+		const visibleIds = new Set(
+			filteredBlogs.slice(startIndex, endIndex).map((blog) => blog.id)
+		);
+
+		// Toggle visibility of blog cards
+		searchIndex.forEach((blog) => {
+			const card = document.querySelector(`[data-blog-id="${blog.id}"]`);
+			if (card) {
+				if (visibleIds.has(blog.id)) {
+					card.classList.remove("hidden");
+				} else {
+					card.classList.add("hidden");
+				}
+			}
+		});
+
+		// Toggle "No results" message
+		if (totalMatches > 0) {
+			noResultsMessage.classList.add("hidden");
+		} else {
+			noResultsMessage.classList.remove("hidden");
+		}
+
+		// Render pagination controls
+		renderPagination(totalPages);
+	};
+
+	const renderPagination = (totalPages) => {
+		if (!paginationContainer) return;
+		paginationContainer.innerHTML = "";
+
+		// If there is only 1 page, hide pagination
+		if (totalPages <= 1) {
+			paginationContainer.classList.add("hidden");
+			return;
+		}
+
+		paginationContainer.classList.remove("hidden");
+
+		// Previous Button
+		const prevBtn = document.createElement("button");
+		prevBtn.innerHTML = `
+			<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+			</svg>
+		`;
+		if (currentPage === 1) {
+			prevBtn.className = "opacity-40 cursor-not-allowed pointer-events-none text-content-muted/50 border border-surface-border p-2 rounded-md";
+			prevBtn.disabled = true;
+		} else {
+			prevBtn.className = "border border-action-secondary-border text-action-secondary-content p-2 rounded-md hover:bg-action-secondary-hover transition-colors cursor-pointer";
+			prevBtn.addEventListener("click", () => {
+				currentPage--;
+				handleSearch();
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			});
+		}
+		paginationContainer.appendChild(prevBtn);
+
+		// Page Numbers & Ellipses Calculation
+		const pages = [];
+		const delta = 1; // Number of pages to show around active page
+
+		// Always show Page 1
+		pages.push(1);
+
+		let left = currentPage - delta;
+		let right = currentPage + delta;
+
+		// Handle bounds near edges
+		if (left <= 2) {
+			left = 2;
+			right = Math.min(left + 2 * delta, totalPages - 1);
+		}
+		if (right >= totalPages - 1) {
+			right = totalPages - 1;
+			left = Math.max(right - 2 * delta, 2);
+		}
+
+		// Left Ellipsis
+		if (left > 2) {
+			pages.push("...");
+		}
+
+		// Middle Pages
+		for (let i = left; i <= right; i++) {
+			if (i > 1 && i < totalPages) {
+				pages.push(i);
+			}
+		}
+
+		// Right Ellipsis
+		if (right < totalPages - 1) {
+			pages.push("...");
+		}
+
+		// Always show Last Page
+		if (totalPages > 1) {
+			pages.push(totalPages);
+		}
+
+		// Render Calculated Page Items
+		pages.forEach((page) => {
+			if (page === "...") {
+				const ellipsisSpan = document.createElement("span");
+				ellipsisSpan.textContent = "...";
+				ellipsisSpan.className = "text-content-muted px-2 font-display select-none";
+				paginationContainer.appendChild(ellipsisSpan);
+			} else {
+				const pageBtn = document.createElement("button");
+				pageBtn.textContent = page.toString();
+				if (page === currentPage) {
+					pageBtn.className = "bg-action-primary text-action-primary-content px-4 py-2 rounded-md font-bold font-display shadow-md";
+				} else {
+					pageBtn.className = "border border-action-secondary-border text-action-secondary-content px-4 py-2 rounded-md hover:bg-action-secondary-hover transition-colors font-display cursor-pointer";
+					pageBtn.addEventListener("click", () => {
+						currentPage = page;
+						handleSearch();
+						window.scrollTo({ top: 0, behavior: "smooth" });
+					});
+				}
+				paginationContainer.appendChild(pageBtn);
+			}
+		});
+
+		// Next Button
+		const nextBtn = document.createElement("button");
+		nextBtn.innerHTML = `
+			<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+			</svg>
+		`;
+		if (currentPage === totalPages) {
+			nextBtn.className = "opacity-40 cursor-not-allowed pointer-events-none text-content-muted/50 border border-surface-border p-2 rounded-md";
+			nextBtn.disabled = true;
+		} else {
+			nextBtn.className = "border border-action-secondary-border text-action-secondary-content p-2 rounded-md hover:bg-action-secondary-hover transition-colors cursor-pointer";
+			nextBtn.addEventListener("click", () => {
+				currentPage++;
+				handleSearch();
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			});
+		}
+		paginationContainer.appendChild(nextBtn);
+	};
 
 	if (searchInput) {
-		const handleSearch = () => {
-			const query = searchInput.value.toLowerCase().trim();
-			let visibleCount = 0;
-
-			searchIndex.forEach((blog) => {
-				const matchTitle = blog.title.toLowerCase().includes(query);
-				const matchDescription = blog.description
-					.toLowerCase()
-					.includes(query);
-				const matchBody = blog.body.toLowerCase().includes(query);
-				const isMatch = matchTitle || matchDescription || matchBody;
-
-				const card = document.querySelector(
-					`[data-blog-id="${blog.id}"]`,
-				);
-				if (card) {
-					if (isMatch) {
-						card.classList.remove("hidden");
-						visibleCount++;
-					} else {
-						card.classList.add("hidden");
-					}
-				}
-			});
-
-			if (visibleCount > 0) {
-				noResultsMessage.classList.add("hidden");
-			} else {
-				noResultsMessage.classList.remove("hidden");
-			}
-		};
-
-		searchInput.addEventListener("input", handleSearch);
-		searchInput.addEventListener("search", handleSearch);
+		searchInput.addEventListener("input", () => {
+			currentPage = 1; // Reset to page 1 when typing
+			handleSearch();
+		});
+		searchInput.addEventListener("search", () => {
+			currentPage = 1; // Reset to page 1 when clearing
+			handleSearch();
+		});
 	}
+
+	// Run initial paginated display
+	handleSearch();
 </script>
 
 <style>
