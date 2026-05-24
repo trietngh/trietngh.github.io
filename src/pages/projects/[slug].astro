@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ImageCarousel from "../../components/ImageCarousel.astro";
 import calendarIconRaw from "../../../public/icons/calendar-svgrepo-com.svg?raw";
 import alarmIconRaw from "../../../public/icons/alarm-svgrepo-com.svg?raw";
 import tickCheckboxIconRaw from "../../../public/icons/tick-checkbox-svgrepo-com.svg?raw";
@@ -167,17 +168,13 @@ const { Content } = await render(project);
 			}
 		</header>
 
-		{
-			project.data.image && (
-				<div class="w-full h-64 md:h-96 overflow-hidden rounded-xl bg-surface-main mb-16 shadow-md border border-surface-border">
-					<img
-						src={project.data.image}
-						alt={project.data.title}
-						class="w-full h-full object-cover"
-					/>
-				</div>
-			)
-		}
+		<hr class="border-t border-surface-border mb-12" />
+
+		<ImageCarousel
+			directory={project.data.imagesDir}
+			fallbackImage={project.data.imageCover}
+			title={project.data.title}
+		/>
 
 		<div class="markdown-content">
 			<Content />

@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { project, headingLevel = 'h3', imageHeightClass = 'h-48' } = Astro.props;
-const { title, description, image, skills, tags, githubUrl } = project.data;
+const { title, description, imageCover, skills, tags, githubUrl } = project.data;
 const url = `/projects/${project.id}`;
 ---
 
@@ -18,9 +18,9 @@ const url = `/projects/${project.id}`;
 	<a href={url} class="absolute inset-0 z-0" aria-label={`View ${title}`}></a>
 	
 	<div class={`w-full ${imageHeightClass} overflow-hidden bg-surface-main relative`}>
-		{image ? (
+		{imageCover ? (
 			<img
-				src={image}
+				src={imageCover}
 				alt={title}
 				class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-transform duration-500 group-hover:scale-105"
 			/>

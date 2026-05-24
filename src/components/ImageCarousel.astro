@@ -1,0 +1,241 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+	directory?: string;
+	fallbackImage?: string;
+	title?: string;
+	class?: string;
+}
+
+const { 
+	directory, 
+	fallbackImage, 
+	title = "Image Gallery",
+	class: className = ""
+} = Astro.props;
+
+let images: string[] = [];
+
+if (directory) {
+	try {
+		// Resolve the relative assets directory under public folder.
+		// If the user specifies '/assets/projects/project_alpha', we read './public/assets/projects/project_alpha'.
+		const cleanDir = directory.startsWith('/') ? directory.slice(1) : directory;
+		const physicalPath = path.join(process.cwd(), 'public', cleanDir);
+		
+		if (fs.existsSync(physicalPath)) {
+			const files = fs.readdirSync(physicalPath);
+			const imageExtensions = new Set(['.png', '.jpg', '.jpeg', '.webp', '.svg', '.gif', '.tiff', '.bmp']);
+			
+			// Filter and map to web paths
+			const foundImages = files
+				.filter(file => imageExtensions.has(path.extname(file).toLowerCase()))
+				.sort() // Deterministic alphabetical sort
+				.map(file => `/${cleanDir}/${file}`);
+			
+			if (foundImages.length > 0) {
+				images = [...images, ...foundImages];
+			} else {
+				console.warn(`[ImageCarousel] No image files found in directory: ${physicalPath}`);
+			}
+		} else {
+			console.warn(`[ImageCarousel] Directory does not exist on filesystem: ${physicalPath}`);
+		}
+	} catch (error) {
+		console.error(`[ImageCarousel] Error reading directory ${directory}:`, error);
+	}
+}
+
+// Fallback to single image if no images are resolved
+if (images.length === 0 && fallbackImage) {
+	images = [fallbackImage];
+}
+---
+
+{images.length > 0 ? (
+	<div 
+		class={`image-carousel relative w-full mb-24 group ${className}`} 
+		tabindex="0"
+		aria-label="Image gallery"
+	>
+		{/* Picture Frame (no border or shadow around the module/frame) */}
+		<div class="relative w-full h-64 md:h-[480px] overflow-hidden rounded-xl bg-surface-main">
+			{/* Slides */}
+			<div class="relative w-full h-full">
+				{images.map((imgUrl, index) => (
+					<div 
+						class={`carousel-slide absolute inset-0 transition-opacity duration-500 ease-in-out ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
+						data-index={index}
+						aria-hidden={index === 0 ? 'false' : 'true'}
+					>
+						<img
+							src={imgUrl}
+							alt={`${title} - Image ${index + 1}`}
+							class="w-full h-full object-contain bg-surface-main"
+							loading={index === 0 ? 'eager' : 'lazy'}
+						/>
+					</div>
+				))}
+			</div>
+
+			{images.length > 1 && (
+				<>
+					{/* Previous Button (overlay inside the picture frame) */}
+					<button
+						type="button"
+						class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-surface-card border border-surface-border text-content-main hover:bg-action-primary hover:text-action-primary-content hover:border-action-primary transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-content-accent cursor-pointer opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+						aria-label="Previous image"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+						</svg>
+					</button>
+
+					{/* Next Button (overlay inside the picture frame) */}
+					<button
+						type="button"
+						class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-surface-card border border-surface-border text-content-main hover:bg-action-primary hover:text-action-primary-content hover:border-action-primary transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-content-accent cursor-pointer opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+						aria-label="Next image"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+						</svg>
+					</button>
+				</>
+			)}
+		</div>
+
+		{images.length > 1 && (
+			/* Indicators (positioned lower, completely outside the picture frame) */
+			<div class="absolute -bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+				{images.map((_, index) => (
+					<button
+						type="button"
+						class={`carousel-indicator w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${index === 0 ? 'bg-content-accent w-6' : 'bg-content-muted/50 hover:bg-content-muted'}`}
+						data-slide-to={index}
+						aria-label={`Go to slide ${index + 1}`}
+						aria-current={index === 0 ? 'true' : 'false'}
+					/>
+				))}
+			</div>
+		)}
+	</div>
+) : null}
+
+<script>
+	function initCarousels() {
+		const carousels = document.querySelectorAll('.image-carousel');
+		carousels.forEach((carousel) => {
+			// Avoid double initialization
+			if (carousel.getAttribute('data-carousel-initialized') === 'true') return;
+			carousel.setAttribute('data-carousel-initialized', 'true');
+
+			const slides = carousel.querySelectorAll('.carousel-slide');
+			const prevBtn = carousel.querySelector('.carousel-prev');
+			const nextBtn = carousel.querySelector('.carousel-next');
+			const indicators = carousel.querySelectorAll('.carousel-indicator');
+			
+			if (slides.length <= 1) return;
+
+			let currentIndex = 0;
+			const totalSlides = slides.length;
+
+			function showSlide(index: number) {
+				// Normalize index
+				if (index < 0) {
+					currentIndex = totalSlides - 1;
+				} else if (index >= totalSlides) {
+					currentIndex = 0;
+				} else {
+					currentIndex = index;
+				}
+
+				// Update slides visibility and accessibility
+				slides.forEach((slide, i) => {
+					if (i === currentIndex) {
+						slide.classList.remove('opacity-0', 'z-0', 'pointer-events-none');
+						slide.classList.add('opacity-100', 'z-10');
+						slide.setAttribute('aria-hidden', 'false');
+					} else {
+						slide.classList.remove('opacity-100', 'z-10');
+						slide.classList.add('opacity-0', 'z-0', 'pointer-events-none');
+						slide.setAttribute('aria-hidden', 'true');
+					}
+				});
+
+				// Update indicators
+				indicators.forEach((indicator, i) => {
+					if (i === currentIndex) {
+						indicator.classList.add('bg-content-accent', 'w-6');
+						indicator.classList.remove('bg-content-muted/50');
+						indicator.setAttribute('aria-current', 'true');
+					} else {
+						indicator.classList.remove('bg-content-accent', 'w-6');
+						indicator.classList.add('bg-content-muted/50');
+						indicator.setAttribute('aria-current', 'false');
+					}
+				});
+			}
+
+			prevBtn?.addEventListener('click', () => {
+				showSlide(currentIndex - 1);
+			});
+
+			nextBtn?.addEventListener('click', () => {
+				showSlide(currentIndex + 1);
+			});
+
+			indicators.forEach((indicator) => {
+				indicator.addEventListener('click', () => {
+					const slideTo = parseInt(indicator.getAttribute('data-slide-to') || '0', 10);
+					showSlide(slideTo);
+				});
+			});
+
+			// Add keyboard support (left/right arrows) when carousel is focused
+			carousel.addEventListener('keydown', (e) => {
+				if (e instanceof KeyboardEvent) {
+					if (e.key === 'ArrowLeft') {
+						e.preventDefault();
+						showSlide(currentIndex - 1);
+					} else if (e.key === 'ArrowRight') {
+						e.preventDefault();
+						showSlide(currentIndex + 1);
+					}
+				}
+			});
+
+			// Touch swipe support
+			let touchStartX = 0;
+			let touchEndX = 0;
+
+			carousel.addEventListener('touchstart', (e) => {
+				if (e instanceof TouchEvent) {
+					touchStartX = e.changedTouches[0].screenX;
+				}
+			}, { passive: true });
+
+			carousel.addEventListener('touchend', (e) => {
+				if (e instanceof TouchEvent) {
+					touchEndX = e.changedTouches[0].screenX;
+					handleSwipe();
+				}
+			}, { passive: true });
+
+			function handleSwipe() {
+				const swipeThreshold = 50;
+				if (touchEndX < touchStartX - swipeThreshold) {
+					showSlide(currentIndex + 1); // Swipe left -> next
+				} else if (touchEndX > touchStartX + swipeThreshold) {
+					showSlide(currentIndex - 1); // Swipe right -> prev
+				}
+			}
+		});
+	}
+
+	// Initialize on page load and after view transitions
+	initCarousels();
+	document.addEventListener('astro:after-swap', initCarousels);
+</script>

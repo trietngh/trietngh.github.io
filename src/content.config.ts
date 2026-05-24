@@ -6,7 +6,8 @@ const projectsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    image: z.string().optional(),
+    imageCover: z.string().optional(),
+    imagesDir: z.string().optional(),
     tags: z.array(z.string()).default([]),
     skills: z.array(z.string()).default([]),
     featured: z.boolean().default(false),

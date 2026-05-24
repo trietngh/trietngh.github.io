@@ -1,7 +1,8 @@
 ---
 title: "Project Alpha"
 description: "A comprehensive web application demonstrating modern development practices and scalable architecture."
-image: "/icons/Home(3).png"
+imageCover: "/icons/Home(3).png"
+imagesDir: "/assets/projects/project_alpha"
 skills: ["Astro", "Tailwind"]
 tags: ["Web", "Frontend"]
 featured: true
@@ -12,6 +13,7 @@ status: "Completed"
 ---
 
 THIS IS A MOCK PROJECT FOR DEVELOPPING PURPOSE ONLY!
+
 Here is the detailed content for **Project Alpha**. 
 
 ## Overview
