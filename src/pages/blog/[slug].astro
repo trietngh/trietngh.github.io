@@ -1,0 +1,162 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+	const blogs = await getCollection("blog");
+	return blogs.map((blog) => ({
+		params: { slug: blog.id },
+		props: { blog },
+	}));
+}
+
+const { blog } = Astro.props;
+const { Content } = await render(blog);
+
+// Format date: May 24, 2026
+const formattedDate = new Date(blog.data.date).toLocaleDateString('en-US', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<BaseLayout title={`${blog.data.title} | Blog`} maxWidth="max-w-3xl">
+	<article class="py-24 px-4 sm:px-6 lg:px-8 mx-auto w-full">
+		<a
+			href="/blog"
+			class="inline-flex items-center gap-2 text-content-muted hover:text-content-main transition-colors mb-8"
+		>
+			<svg
+				class="w-5 h-5"
+				fill="none"
+				stroke="currentColor"
+				viewBox="0 0 24 24"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+			</svg>
+			Back to Blog
+		</a>
+
+		<header class="mb-12">
+			<div class="flex items-center gap-2 text-content-muted text-sm mb-4 font-display">
+				<svg
+					class="w-4 h-4 text-content-accent"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+					></path>
+				</svg>
+				<span>{formattedDate}</span>
+			</div>
+
+			<h1
+				class="text-4xl md:text-5xl font-display font-bold text-content-main mb-6 leading-tight"
+			>
+				{blog.data.title}
+			</h1>
+
+			<p class="text-xl text-content-muted leading-relaxed font-sans italic border-l-4 border-content-accent pl-4 py-1">
+				{blog.data.description}
+			</p>
+		</header>
+
+		<hr class="border-t border-surface-border mb-12" />
+
+		<div class="markdown-content">
+			<Content />
+		</div>
+	</article>
+</BaseLayout>
+
+<style is:global>
+	.markdown-content h1 {
+		font-size: 2.25rem;
+		line-height: 2.5rem;
+		font-family: var(--font-display);
+		font-weight: 700;
+		color: var(--color-content-main);
+		margin-top: 3rem;
+		margin-bottom: 1.5rem;
+	}
+	.markdown-content h2 {
+		font-size: 1.875rem;
+		line-height: 2.25rem;
+		font-family: var(--font-display);
+		font-weight: 700;
+		color: var(--color-content-main);
+		margin-top: 2.5rem;
+		margin-bottom: 1rem;
+	}
+	.markdown-content h3 {
+		font-size: 1.5rem;
+		line-height: 2rem;
+		font-family: var(--font-display);
+		font-weight: 700;
+		color: var(--color-content-main);
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+	}
+	.markdown-content p {
+		font-size: 1.25rem;
+		line-height: 1.75rem;
+		color: var(--color-content-muted);
+		margin-bottom: 1.5rem;
+		text-align: justify;
+	}
+	.markdown-content ul {
+		list-style-type: disc;
+		list-style-position: inside;
+		font-size: 1.25rem;
+		line-height: 1.75rem;
+		color: var(--color-content-muted);
+		margin-bottom: 1.5rem;
+	}
+	.markdown-content ol {
+		list-style-type: decimal;
+		list-style-position: inside;
+		font-size: 1.25rem;
+		line-height: 1.75rem;
+		color: var(--color-content-muted);
+		margin-bottom: 1.5rem;
+	}
+	.markdown-content li {
+		margin-bottom: 0.5rem;
+	}
+	.markdown-content strong {
+		color: var(--color-content-main);
+		font-weight: 700;
+	}
+	.markdown-content a {
+		color: var(--color-content-accent);
+		text-decoration: underline;
+	}
+	.markdown-content a:hover {
+		text-decoration: none;
+	}
+	.markdown-content pre {
+		background-color: var(--color-bg-card);
+		border: 1px solid var(--color-border-main);
+		padding: 1.25rem;
+		border-radius: 0.5rem;
+		overflow-x: auto;
+		margin-bottom: 1.5rem;
+	}
+	.markdown-content code {
+		font-family: monospace;
+		font-size: 1rem;
+		color: var(--color-text-main);
+	}
+</style>

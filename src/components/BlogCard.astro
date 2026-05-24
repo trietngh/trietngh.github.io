@@ -1,0 +1,73 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import calendarIconRaw from '../../public/icons/calendar-svgrepo-com.svg?raw';
+
+interface Props {
+	blog: CollectionEntry<'blog'>;
+}
+
+const { blog } = Astro.props;
+const { title, description, date } = blog.data;
+const url = `/blog/${blog.id}`;
+
+// Format date nicely: May 24, 2026
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+
+// Clean up calendar SVG to use currentColor and make responsive
+const calendarIcon = calendarIconRaw
+	.replace(/width="800px"/g, 'width="100%"')
+	.replace(/height="800px"/g, 'height="100%"')
+	.replace(/stroke="#F7FFF7"/g, 'stroke="currentColor"')
+	.replace(/fill="#F7FFF7"/g, 'fill="currentColor"');
+---
+
+<article
+	class="border-b border-surface-border last:border-b-0 py-8 flex flex-col group"
+	data-blog-id={blog.id}
+>
+	<div class="flex items-center gap-2 text-content-muted text-sm mb-4 font-display">
+		<div class="w-4 h-4 text-content-accent flex-shrink-0">
+			<Fragment set:html={calendarIcon} />
+		</div>
+		<span>{formattedDate}</span>
+	</div>
+
+	<h2
+		class="text-2xl md:text-3xl font-display font-bold text-content-main mb-4"
+	>
+		<a href={url} class="hover:text-content-accent transition-colors">
+			{title}
+		</a>
+	</h2>
+
+	<p class="text-base text-content-muted mb-6 leading-relaxed">
+		{description}
+	</p>
+
+	<div class="mt-auto">
+		<a
+			href={url}
+			class="inline-flex items-center gap-2 bg-action-primary text-action-primary-content px-5 py-2.5 rounded-md hover:bg-action-primary-hover transition-colors font-sans font-bold text-sm cursor-pointer shadow-md hover:shadow-lg"
+		>
+			Read more
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="2.5"
+				stroke="currentColor"
+				class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+				/>
+			</svg>
+		</a>
+	</div>
+</article>
