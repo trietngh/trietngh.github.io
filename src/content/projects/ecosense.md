@@ -1,7 +1,7 @@
 ---
 title: "ECOSense: Autonomous waste-collecting robot"
 description: "An autonomous, energy-monitored robotics platform designed for centimeter-precise litter collection and environmental footprint auditing."
-imageCover: "/assets/projects/ecosense/recto-final.svg"
+imageCover: "/assets/projects/ecosense/2_ecosense.jpeg"
 imagesDir: "/assets/projects/ecosense"
 skills: ["ROS2", "Behavior Trees", "MoveIt2", "Nav2", "Docker", "C++", "Python"]
 tags: ["Robotics", "Computer Vision", "Control Systems"]
