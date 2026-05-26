@@ -23,4 +23,15 @@ There is a built-in GitHub Actions workflow that will automatically deploy the w
 
 Guide to create a personal Github is available at [Quickstart for GitHub Pages](https://docs.github.com/en/pages/quickstart).
 
-
+## TODO
+- [ ] Add blogs for:
+  - [ ] ECOSENSE project (based on tech write-ups)
+- [ ] Add `About` page with a timeline of my education and work experience and my CV.
+- [ ] Add `Contact` page
+- [ ] Add Projects:
+  - [ ] Kalman Filter from Scratch
+  - [ ] A.T.L.A.S from Robotics Club
+  - [ ] NXP Cup
+  - [ ] RISC-V ALU with FPGA
+  - [ ] Portfolio Website (this one!)
+- [ ] Some animation in `Home` page
