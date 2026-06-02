@@ -21,4 +21,4 @@ The servos arrived around 1 month after ordering. We printed the 3D parts of the
 
 With the driver ready, I moved up the stack to planning and control. Here is where thing get complicated.
 
- [To be continued...]
+[To be continued...]

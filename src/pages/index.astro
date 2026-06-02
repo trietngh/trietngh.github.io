@@ -13,6 +13,73 @@ const featuredProjects = allProjects
 <BaseLayout title="Triet Nguyen | Robotics Engineer" maxWidth="max-w-full">
 	<!-- Main Center Content -->
 	<div class="min-h-screen flex items-center justify-center relative px-4">
+		<!-- Decorative Elements -->
+		<div
+			class="absolute pointer-events-none select-none z-50 earth-spin"
+			style="top: 60%; right: 85%; width: 700px; height: 700px; opacity: 1.0; filter: invert(1); --spin-duration: 150s;"
+		>
+			<img
+				src="/icons/earth.png"
+				alt="Decorative Earth"
+				class="w-full h-full object-contain"
+			/>
+		</div>
+
+		<div
+			class="absolute pointer-events-none select-none z-50"
+			style="top: 87%; right: 85%; width: 100px; height: 100px; opacity: 1.0; rotate: 180deg;"
+		>
+			<img
+				src="/icons/space_shuttle.png"
+				alt="Decorative Space Shuttle"
+				class="w-full h-full object-contain"
+			/>
+		</div>
+
+		<div
+			class="absolute pointer-events-none select-none z-50"
+			style="top: 75%; right: 20%; width: 200px; height: 200px; opacity: 1.0;"
+		>
+			<img
+				src="/icons/rocket.png"
+				alt="Decorative Rocket"
+				class="w-full h-full object-contain"
+			/>
+		</div>
+
+		<div
+			class="absolute pointer-events-none select-none z-50"
+			style="top: 150%; right: 0%; width: 250px; height: 250px; opacity: 1.0;"
+		>
+			<img
+				src="/icons/moon.png"
+				alt="Decorative Moon"
+				class="w-full h-full object-contain"
+			/>
+		</div>
+
+		<div
+			class="absolute pointer-events-none select-none z-50"
+			style="top: 230%; right: 85%; width: 400px; height: 300px; opacity: 1.0; rotate: -30deg;"
+		>
+			<img
+				src="/icons/saturn.png"
+				alt="Decorative Saturn"
+				class="w-full h-full object-contain"
+			/>
+		</div>
+
+		<div
+			class="absolute pointer-events-none select-none z-50 earth-spin"
+			style="top: 250%; right: 15%; width: 100px; height: 100px; opacity: 1.0; --spin-duration: 20s;"
+		>
+			<img
+				src="/icons/guitare.png"
+				alt="Decorative Guitare"
+				class="w-full h-full object-contain"
+			/>
+		</div>
+
 		<div
 			class="max-w-full w-full flex flex-col md:flex-row items-center justify-start gap-16 md:gap-40 md:pl-24 lg:pl-32 xl:pl-48 z-10"
 		>
@@ -30,7 +97,7 @@ const featuredProjects = allProjects
 				<!-- Mars Rover Icon -->
 				<div class="w-16 h-16 md:w-32 md:h-32 mb-4">
 					<img
-						src="/icons/rover.svg"
+						src="/icons/robotic_arm.svg"
 						alt="Mars Rover"
 						class="w-full h-full object-contain"
 					/>
@@ -191,3 +258,18 @@ const featuredProjects = allProjects
 		</div>
 	</section>
 </BaseLayout>
+
+<style>
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.earth-spin {
+		animation: spin var(--spin-duration, 120s) linear infinite;
+	}
+</style>
