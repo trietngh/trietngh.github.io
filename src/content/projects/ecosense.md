@@ -15,13 +15,11 @@ status: "Completed"
 ## Overview
 **Ecosense** is my final Master's Degree project at INSA Toulouse. The project, aims to build an autonomouse agent for a smart city as a part of the green transition.
 
-The system is designed to autonomously patrol indoor environments (such as train stations, airports, and commercial spaces), detect and locate litter (cans, plastic bottles, cups), position itself with centimeter-level accuracy, and retrieve the waste using a robotic arm. Simultaneously, the robot monitors and analyzes the real-time electrical energy consumption of its main components (Jetson Nano, Raspberry Pi 3, actuators, controllers) to evaluate its carbon footprint and build a complete environmental audit.
+The system is designed to autonomously patrol indoor environments (such as train stations, airports, and commercial spaces), detect and locate litter (cans, plastic bottles, cups), position itself with centimeter-level accuracy, and retrieve the waste using a robotic arm. Simultaneously, the robot monitors and analyzes the real-time electrical energy consumption of its main components to evaluate its carbon footprint and build a complete environmental audit.
 
 ---
 
 ## Technical Stack
-
-The architecture of ECOSense bridges high-level artificial intelligence and autonomous navigation with low-level embedded hardware and real-time execution.
 
 ### 1. Hardware
 - **Nvidia Jetson Nano**: Handles real-time AI inference, object detection, navigation and Behavior Tree coordination.

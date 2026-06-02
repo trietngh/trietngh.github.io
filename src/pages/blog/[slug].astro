@@ -14,14 +14,14 @@ const { blog } = Astro.props;
 const { Content } = await render(blog);
 
 // Format date: May 24, 2026
-const formattedDate = new Date(blog.data.date).toLocaleDateString('en-US', {
-	year: 'numeric',
-	month: 'long',
-	day: 'numeric',
+const formattedDate = new Date(blog.data.date).toLocaleDateString("en-US", {
+	year: "numeric",
+	month: "long",
+	day: "numeric",
 });
 ---
 
-<BaseLayout title={`${blog.data.title} | Blog`} maxWidth="max-w-3xl">
+<BaseLayout title={`${blog.data.title} | Blog`} maxWidth="max-w-6xl">
 	<article class="py-24 px-4 sm:px-6 lg:px-8 mx-auto w-full">
 		<a
 			href="/blog"
@@ -44,7 +44,9 @@ const formattedDate = new Date(blog.data.date).toLocaleDateString('en-US', {
 		</a>
 
 		<header class="mb-12">
-			<div class="flex items-center gap-2 text-content-muted text-sm mb-4 font-display">
+			<div
+				class="flex items-center gap-2 text-content-muted text-sm mb-4 font-display"
+			>
 				<svg
 					class="w-4 h-4 text-content-accent"
 					fill="none"
@@ -68,7 +70,9 @@ const formattedDate = new Date(blog.data.date).toLocaleDateString('en-US', {
 				{blog.data.title}
 			</h1>
 
-			<p class="text-xl text-content-muted leading-relaxed font-sans italic border-l-4 border-content-accent pl-4 py-1">
+			<p
+				class="text-xl text-content-muted leading-relaxed font-sans italic border-l-4 border-content-accent pl-4 py-1"
+			>
 				{blog.data.description}
 			</p>
 		</header>
@@ -158,5 +162,29 @@ const formattedDate = new Date(blog.data.date).toLocaleDateString('en-US', {
 		font-family: monospace;
 		font-size: 1rem;
 		color: var(--color-text-main);
+	}
+	.markdown-content img {
+		display: block;
+		margin: 0 auto;
+		border-radius: 0.5rem;
+		width: 40%;
+		height: auto;
+	}
+	.markdown-content figure {
+		margin: 2.5rem auto;
+		text-align: center;
+	}
+	.markdown-content figure img {
+		margin-bottom: 0.75rem;
+	}
+	.markdown-content figcaption {
+		font-family: var(--font-sans);
+		font-size: 1.2rem;
+		color: var(--color-content-muted);
+		opacity: 0.85;
+		font-style: italic;
+		line-height: 1.4;
+		max-width: 80%;
+		margin: 0.5rem auto 0 auto;
 	}
 </style>
