@@ -21,7 +21,7 @@
 
 @theme {
   /* Fonts */
-  --font-sans: 'Aperture', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Oxanium', sans-serif;
 
   /* Surface Colors */
