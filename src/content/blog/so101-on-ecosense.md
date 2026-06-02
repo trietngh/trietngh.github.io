@@ -20,19 +20,5 @@ The servos arrived around 1 month after ordering. We printed the 3D parts of the
 ## Configuring MoveIt 2 and Asynchronous Services
 
 With the driver ready, I moved up the stack to planning and control. Here is where thing get complicated.
-There are
 
-I chose **MoveIt 2**, the industry standard for robotic manipulation. It provides path planning, collision checking, and inverse kinematics out of the box, but it is notoriously complex to configure.
-
-I spent days defining our joint limits, configuring planning groups, and teaching MoveIt 2 about the physical bounds of the GEICar chassis so the arm wouldn't accidentally punch the robot’s own LiDAR or camera. Once the kinematic model was calibrated, I defined named target postures:
-*   `home`: a compact, folded state for transit.
-*   `bin_drop`: the precise coordinates where the arm releases the trash into our onboard bin.
-
-For Sprint 4, I wrapped these movements into a clean, service-based ROS 2 interface. Instead of forcing the robot's main state coordinator to micromanage joint angles, the arm exposed simple asynchronous service endpoints: `pick_and_place` (which accepted target XYZ coordinates), `check_reachability`, and `retract_arm`. I thoroughly simulated and validated these behaviors in **Gazebo** and **Rviz2** before deploying them to the physical robot.
-
-## What I Learned
-
-This sprint was a crash course in hardware pragmatism. I learned that:
-1.  **Simulation lies, hardware is messy:** A trajectory that looks smooth in Gazebo will shake, lag, or hit a physical limit due to servo backlash and power distribution limits. Physical tuning is non-negotiable.
-2.  **API encapsulation is key:** Designing the arm as a self-contained service-based node made it incredibly easy to integrate later. The main coordinator didn't need to know *how* to plan joint paths; it just sent a coordinate and waited for a success code.
-3.  **Perfect is the enemy of done:** The wrist servo current bug was annoying, but writing a robust software workaround saved us days of mechanical disassembly when deadlines were tight.
+ [To be continued...]
