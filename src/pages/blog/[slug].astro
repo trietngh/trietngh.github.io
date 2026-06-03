@@ -163,7 +163,8 @@ const formattedDate = new Date(blog.data.date).toLocaleDateString("en-US", {
 		font-size: 1rem;
 		color: var(--color-text-main);
 	}
-	.markdown-content img {
+	.markdown-content img,
+	.markdown-content video {
 		display: block;
 		margin: 0 auto;
 		border-radius: 0.5rem;
@@ -174,7 +175,8 @@ const formattedDate = new Date(blog.data.date).toLocaleDateString("en-US", {
 		margin: 2.5rem auto;
 		text-align: center;
 	}
-	.markdown-content figure img {
+	.markdown-content figure img,
+	.markdown-content figure video {
 		margin-bottom: 0.75rem;
 	}
 	.markdown-content figcaption {

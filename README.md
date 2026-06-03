@@ -34,4 +34,4 @@ Guide to create a personal Github is available at [Quickstart for GitHub Pages](
   - [ ] NXP Cup
   - [ ] RISC-V ALU with FPGA
   - [ ] Portfolio Website (this one!)
-- [ ] Some animation in `Home` page
+- [x] Some animations in `Home` page
