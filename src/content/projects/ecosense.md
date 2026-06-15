@@ -4,7 +4,7 @@ description: "An autonomous, energy-monitored robotics platform designed for cen
 imageCover: "/assets/projects/ecosense/2_ecosense.jpeg"
 imagesDir: "/assets/projects/ecosense"
 skills: ["ROS2", "Behavior Trees", "MoveIt2", "Nav2", "Docker", "C++", "Python"]
-tags: ["Robotics", "Computer Vision", "Control Systems"]
+tags: ["Robotics", "Computer Vision", "Control Theory"]
 featured: true
 githubUrl: "https://github.com/Cassian-5SIEC/geicar"
 startedMonth: "Oct 2025"
