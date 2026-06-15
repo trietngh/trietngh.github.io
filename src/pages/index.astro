@@ -5,7 +5,20 @@ import TypewriterTitle from "../components/TypewriterTitle.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 
 const allProjects = await getCollection("projects");
-const featuredProjects = allProjects
+
+const parseProjectDate = (startedMonth?: string) => {
+	if (!startedMonth) return new Date(0);
+	const date = new Date(startedMonth);
+	return isNaN(date.getTime()) ? new Date(0) : date;
+};
+
+const sortedProjects = allProjects.sort(
+	(a, b) =>
+		parseProjectDate(b.data.startedMonth).getTime() -
+		parseProjectDate(a.data.startedMonth).getTime(),
+);
+
+const featuredProjects = sortedProjects
 	.filter((project) => project.data.featured)
 	.slice(0, 3);
 ---
@@ -71,7 +84,7 @@ const featuredProjects = allProjects
 
 		<div
 			class="absolute pointer-events-none select-none z-50 earth-spin"
-			style="top: 250%; right: 15%; width: 100px; height: 100px; opacity: 1.0; --spin-duration: 20s;"
+			style="top: 220%; right: 10%; width: 100px; height: 100px; opacity: 1.0; --spin-duration: 20s;"
 		>
 			<img
 				src="/icons/guitare.png"

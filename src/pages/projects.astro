@@ -4,6 +4,18 @@ import { getCollection } from "astro:content";
 import ProjectCard from "../components/ProjectCard.astro";
 
 const allProjects = await getCollection("projects");
+
+const parseProjectDate = (startedMonth?: string) => {
+	if (!startedMonth) return new Date(0);
+	const date = new Date(startedMonth);
+	return isNaN(date.getTime()) ? new Date(0) : date;
+};
+
+const sortedProjects = allProjects.sort(
+	(a, b) =>
+		parseProjectDate(b.data.startedMonth).getTime() -
+		parseProjectDate(a.data.startedMonth).getTime()
+);
 ---
 
 <BaseLayout title="Projects | Portfolio">
@@ -14,7 +26,7 @@ const allProjects = await getCollection("projects");
 		</div>
 		
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-			{allProjects.map((project) => (
+			{sortedProjects.map((project) => (
 				<ProjectCard project={project} headingLevel="h2" imageHeightClass="h-64" />
 			))}
 		</div>
